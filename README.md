@@ -30,11 +30,12 @@ The fields are:
  
  ## Adding additional sources
 
- Additional sources may be added to this app.
+ Additional sources may be added to this app by updating the [git repo](https://github.com/jkanner/trigger-index).
 
- The key step is to write a method which will read in the source information, and return 
+ You are welcome to make a pull request with any additions.  
+ The key step to add a new source is to write a method which will read in the source information, and return 
  a dictionary including the same fields listed above.  Each item in the dictionary should
- be a 1-dimensional numpy array.  See the metho `data/format_trigs.py` for examples.  If you 
+ be a 1-dimensional numpy array.  See the method `data/format_trigs.py` for examples.  If you 
  wish to try running `format_trigs.py`, you may first wish to run `bash data/download.sh` to
  download the expected data files.
 

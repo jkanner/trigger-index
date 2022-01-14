@@ -31,7 +31,7 @@ st.dataframe(selected)
 # -- Download trigger list as JSON
 jsontrigs = helper.convert_json(selected)
 st.download_button(
-   "Press to Download",
+   "Download triggers as JSON",
    jsontrigs,
    "file.json",
    "application/json",
