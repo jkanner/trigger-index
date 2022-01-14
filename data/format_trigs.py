@@ -15,6 +15,36 @@ import requests, tempfile, h5py
 KEYLIST = ['name', 'ifar', 'mass', 'gps', 'pastro', 'source', 'snr', 'pipeline']
 IFAR_THRESH = 1/(365)    # FAR threshold of 1 / day
 
+def read_gwosc():
+
+	url = 'https://www.gw-openscience.org/eventapi/json/GWTC/'
+	r = requests.get(url)
+	trigdict = json.loads(r.content)
+	#print(json.dumps(trigdict, indent=2))
+	outdict = {}
+	for key in KEYLIST:
+		outdict[key] = np.array([])
+
+	N = len(trigdict['events'].keys())
+	outdict['source'] = np.array(['Event-Portal']*N)
+	outdict['pipeline'] = np.array(['NA']*N)
+	for tag, info in trigdict['events'].items():
+
+		outdict['name']   = np.append(outdict['name'], info['commonName'])
+		outdict['ifar']   = np.append(outdict['ifar'], 1/info['far'])
+		try:
+			outdict['mass']   = np.append(outdict['mass'], info['mass_1_source'] + info['mass_2_source'])
+		except:
+			outdict['mass']   = np.append(outdict['mass'], -1.0)
+		outdict['gps']    = np.append(outdict['gps'], info['GPS'])
+		outdict['pastro'] = np.append(outdict['pastro'], info['p_astro'])
+		outdict['snr']    = np.append(outdict['snr'], info['network_matched_filter_snr'])
+
+
+	print(outdict)
+	return outdict
+	
+
 def read_xml_trigs(loc = 'source_data/gwtc3/search_data_products', pipeline = 'gstlal_allsky', source='GWTC-3'):
 
 	trigdir = os.path.join(loc, pipeline)
@@ -45,7 +75,7 @@ def read_xml_trigs(loc = 'source_data/gwtc3/search_data_products', pipeline = 'g
 		gps = coinc_data[0]['end_time'] + coinc_data[0]['end_time_ns']*1e-9
 		trigdict['gps']  = np.append(trigdict['gps'], gps)
 		trigdict['mass'] = np.append(trigdict['mass'], coinc_data[0]['mass'])
-		trigdict['source'] = np.append(trigdict['source'], source)
+		trigdict['source'] = np.append(trigdict['source'], source + '_' + pipeline)
 		trigdict['pipeline'] = np.append(trigdict['pipeline'], pipeline)
 
 		# -- Try to find p-astro
@@ -120,29 +150,38 @@ def to_pd(trigdict):
 
 	return trig_confident
 
+# -- Load GWTC
+gwosc = read_gwosc()
 
+# -- Load OGC-4
 ogc4 = read_ogc4()
 
-gstlal = read_xml_trigs(pipeline = 'gstlal_allsky', source='GWTC-3')
+# -- Load GWTC-3
+gstlal3 = read_xml_trigs(pipeline = 'gstlal_allsky', source='GWTC-3')
 #print(gstlal)
-
-pycbc_bbh = read_xml_trigs(pipeline = 'pycbc_highmass', source='GWTC-3')
+pycbc_bbh3 = read_xml_trigs(pipeline = 'pycbc_highmass', source='GWTC-3')
 #print(pycbc_bbh)
-
-pycbc = read_xml_trigs(pipeline = 'pycbc_all_sky')
+pycbc3 = read_xml_trigs(pipeline = 'pycbc_all_sky')
 #print(pycbc)
-
-mbta = read_xml_trigs(pipeline='mbta_all_sky')
+mbta3 = read_xml_trigs(pipeline='mbta_all_sky')
 #print(mbta)
 
-gwtc3_list = [to_pd(gstlal), to_pd(pycbc_bbh), to_pd(pycbc), to_pd(mbta), to_pd(ogc4)]
+# -- Load GWTC-2.1
+gstlal2p1 = read_xml_trigs(loc='source_data/gwtc2p1/search_data_products', pipeline='gstlal_all_sky', source='GWTC-2.1')
+mbta2p1 = read_xml_trigs( loc='source_data/gwtc2p1/search_data_products', pipeline='mbta_all_sky', source='GWTC-2.1')
+pycbc2p1 = read_xml_trigs( loc='source_data/gwtc2p1/search_data_products', pipeline='pycbc_all_sky', source='GWTC-2.1')
+pycbc_bbh2p1 = read_xml_trigs( loc='source_data/gwtc2p1/search_data_products', pipeline='pycbc_highmass', source='GWTC-2.1')
 
-all_gwtc3 = pd.concat(gwtc3_list)
 
-print(all_gwtc3)
+# -- Combine all lists into a pandas dataframe
+source_list = [to_pd(gstlal3), to_pd(pycbc_bbh3), to_pd(pycbc3), to_pd(mbta3), to_pd(ogc4), 
+	to_pd(gstlal2p1), to_pd(mbta2p1), to_pd(pycbc2p1), to_pd(pycbc_bbh2p1), to_pd(gwosc)]
+all_triggers = pd.concat(source_list)
+
+print(all_triggers)
 
 # -- Save trigger set
-all_gwtc3.to_hdf('alltrigs.hdf', key='triggers', mode='w')
+all_triggers.to_hdf('alltrigs.hdf', key='triggers', mode='w')
 
 
 
