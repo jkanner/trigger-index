@@ -10,7 +10,7 @@ KEYLIST = ['name', 'ifar', 'mass', 'gps', 'pastro', 'source', 'snr', 'pipeline']
 IFAR_THRESH = 1/(365)    # FAR threshold of 1 / day
 
 
-def read_xml_trigs(loc = 'source_data/search_data_products', pipeline = 'gstlal_allsky', source='GWTC-3'):
+def read_xml_trigs(loc = 'source_data/gwtc3/search_data_products', pipeline = 'gstlal_allsky', source='GWTC-3'):
 
 	trigdir = os.path.join(loc, pipeline)
 	triglist = glob(trigdir + "/*.xml")

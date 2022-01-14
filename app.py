@@ -53,7 +53,7 @@ chart = alt.Chart(selected).mark_circle(
     alt.X('gps:Q', axis=alt.Axis(labelAngle=90), scale=alt.Scale(zero=False)),
     alt.Y('source:N'),
     alt.Color('source:N', legend=None),
-    tooltip=['name', 'ifar']
+    tooltip=['name', 'gps', 'snr', 'mass', 'pastro']
 ).interactive(
 	bind_y = False
 ).properties(
