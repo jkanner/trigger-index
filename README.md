@@ -15,7 +15,7 @@ This web app provides an index to compare GW event triggers from various sources
 
 ## HDF5 File
 
-All triggers on display in the app are available in [alltrigs.hdf](./data/alltrigs.hdf)
+All triggers on display in the app are available in [data/alltrigs.hdf](https://github.com/jkanner/trigger-index/tree/main/data)
 
 The fields are:
 

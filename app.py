@@ -4,14 +4,9 @@ import altair as alt
 
 st.write("## GW Trigger Index")
 
-st.write("### What's going on?")
 st.write("""
-    This app is a skeleton for an idex of GW triggers.
-
-    Currently, the app grabs all triggers from the OGC-4,
-    and selects only those with a FAR < 1/day.  
-
-    The slider in the sidebar can be used to select a subset of GPS times.
+    * Compare sets of gravitational wave triggers from different sources.
+    * Click on README at the bottom for more information.
     """)
 
 
