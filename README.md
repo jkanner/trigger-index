@@ -15,7 +15,7 @@ This web app provides an index to compare GW event triggers from various sources
 
 ## HDF5 File
 
-All triggers on display in the app are available in [./data/alltrigs.hdf]
+All triggers on display in the app are available in [alltrigs.hdf](./data/alltrigs.hdf)
 
 The fields are:
 
@@ -38,7 +38,7 @@ The fields are:
  wish to try running `format_trigs.py`, you may first wish to run `bash data/download.sh` to
  download the expected data files.
 
- 
+
 
 
 

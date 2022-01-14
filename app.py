@@ -70,6 +70,12 @@ with st.expander("Help with plot"):
         * Click and drag to move x-axis
         """)
 
+# -- README
+with open('README.md', 'r') as readme:
+    readmetxt = readme.read()
+with st.expander("README"):
+    st.write(readmetxt)
+
 
 
 
