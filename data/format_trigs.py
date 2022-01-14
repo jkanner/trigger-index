@@ -15,7 +15,6 @@ import requests, tempfile, h5py
 KEYLIST = ['name', 'ifar', 'mass', 'gps', 'pastro', 'source', 'snr', 'pipeline']
 IFAR_THRESH = 1/(365)    # FAR threshold of 1 / day
 
-
 def read_xml_trigs(loc = 'source_data/gwtc3/search_data_products', pipeline = 'gstlal_allsky', source='GWTC-3'):
 
 	trigdir = os.path.join(loc, pipeline)
@@ -66,7 +65,7 @@ def read_xml_trigs(loc = 'source_data/gwtc3/search_data_products', pipeline = 'g
 	return trigdict		
 
 
-def read_ogc4(fn='4-OGC_small.hdf'):
+def read_ogc4():
 	# -- URL for download
 	url = "https://github.com/gwastro/4-ogc/raw/master/search/4-OGC_small.hdf"
 
