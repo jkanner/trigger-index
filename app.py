@@ -9,19 +9,15 @@ st.write("""
     This app is a skeleton for an idex of GW triggers.
 
     Currently, the app grabs all triggers from the OGC-4,
-    and selects only those with a FAR < 1/hour.  
+    and selects only those with a FAR < 1/day.  
 
-    The slider in the sidbar can be used to select a subset of GPS times.
-
-    The plot at the bottom is interactive, but it won't work well with all the 
-    triggers.  Try using the slider to grab around 1,000 triggers, and then you
-    should be able to scroll up and down on the plot to zoom, and see a tooltip
-    when you hover over triggers.
+    The slider in the sidebar can be used to select a subset of GPS times.
     """)
 
 
 # -- Read all trigs
-triglist = helper.get_all_trigs()
+#triglist = helper.get_all_trigs()
+triglist = helper.read_trigs()
 
 gps_min = int(triglist['gps'].min())
 gps_max = int(triglist['gps'].max())
@@ -47,6 +43,7 @@ st.download_button(
    key='download-json'
 )
 
+
 # -- Plot triggers
 chart = alt.Chart(selected).mark_circle(
     opacity=0.8,
@@ -64,5 +61,15 @@ chart = alt.Chart(selected).mark_circle(
     height=320)
 
 st.write(chart)
+
+# -- Notes on plot
+with st.expander("Help with plot"):
+    st.write("""
+        * Hover over a point to see trigger information
+        * Scroll to zoom
+        * Click and drag to move x-axis
+        """)
+
+
 
 

@@ -7,7 +7,7 @@ import requests, tempfile
 
 KEYLIST = ['name', 'ifar', 'mass1', 'mass2', 'gps', 'pastro', 'source']
 
-IFAR_THRESH = 1/(24*365)    # FAR threshold of 1 / hour
+IFAR_THRESH = 1/(365)    # FAR threshold of 1 / day
 
 ## name, IFAR, mass1, mass2, 
 ## {H1/L1/V1}_end_time, pastro 
@@ -73,6 +73,10 @@ def get_all_trigs():
 	triglist = make_trigs(og4)
 	return triglist
 
+@st.cache
+def read_trigs():
+	triglist = pd.read_hdf('data/alltrigs.hdf', 'triggers')
+	return triglist
 
 @st.cache
 def convert_json(df):
