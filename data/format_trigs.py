@@ -1,3 +1,9 @@
+
+# -- Hack to use old pickle protocol
+import pickle
+pickle.HIGHEST_PROTOCOL = 4
+
+# -- Needed imports
 import os
 from glob import glob
 from gwpy.table import Table
