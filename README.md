@@ -1,11 +1,14 @@
 # trigger-index
 
-### An index to compare GW event triggers from various sources.
+### An index to compare gravitational-wave event triggers from various sources.
 
 [![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://share.streamlit.io/jkanner/trigger-index/main/app.py)
 
 [Source Code](https://github.com/jkanner/trigger-index)
 
+This app displays results from the International Gravitational Wave Network (IGWN), including [LIGO](https://www.ligo.org), 
+[Virgo](https://www.virgo-gw.eu), and 
+[KAGRA](https://gwcenter.icrr.u-tokyo.ac.jp/en/).
 
 ## Data Sources
 
