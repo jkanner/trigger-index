@@ -15,7 +15,7 @@ st.write("""
 triglist = helper.read_trigs()
 
 gps_min = int(triglist['gps'].min())
-gps_max = np.ceil(triglist['gps'].max())
+gps_max = int(np.ceil(triglist['gps'].max()))
 alltime = int(gps_max - gps_min)
 
 st.sidebar.write("## Set GPS range")
@@ -23,7 +23,6 @@ st.sidebar.write("Default range: {0} - {1}".format(gps_min, gps_max))
 st.sidebar.write("[GPS Converter](https://www.gw-openscience.org/gps/)")
 gps_low = st.sidebar.number_input('GPS Start', value=gps_min )
 gps_high = st.sidebar.number_input('GPS End', value=gps_max )
-#gps_high = gps_low + gps_dur
 
 # -- Set selections
 #gps_range = st.sidebar.slider('GPS Range', value=[gps_min, gps_max], step = 24*3600, 
