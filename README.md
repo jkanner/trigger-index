@@ -1,10 +1,11 @@
 # trigger-index
 
-Index of GW event triggers
+### An index to compare GW event triggers from various sources.
 
 [![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://share.streamlit.io/jkanner/trigger-index/main/app.py)
 
-This web app provides an index to compare GW event triggers from various sources.
+[Source Code](https://github.com/jkanner/trigger-index)
+
 
 ## Data Sources
 
@@ -28,16 +29,16 @@ The fields are:
  * `snr`    Signal-to-noise ratio
  * `pipeline` Name of the search pipeline that identified the trigger
  
- ## Adding additional sources
+## Adding additional sources
 
- Additional sources may be added to this app by updating the [git repo](https://github.com/jkanner/trigger-index).
+Additional sources may be added to this app by updating the [git repo](https://github.com/jkanner/trigger-index).
 
- You are welcome to make a pull request with any additions.  
- The key step to add a new source is to write a method which will read in the source information, and return 
- a dictionary including the same fields listed above.  Each item in the dictionary should
- be a 1-dimensional numpy array.  See the method `data/format_trigs.py` for examples.  If you 
- wish to try running `format_trigs.py`, you may first wish to run `bash data/download.sh` to
- download the expected data files.
+You are welcome to make a pull request with any additions.  
+The key step to add a new source is to write a method which will read in the source information, and return 
+a dictionary including the same fields listed above.  Each item in the dictionary should
+be a 1-dimensional numpy array.  See the method `data/format_trigs.py` for examples.  If you 
+wish to try running `format_trigs.py`, you may first wish to run `bash data/download.sh` to
+download the expected data files.
 
 
 
