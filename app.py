@@ -67,7 +67,7 @@ chart = alt.Chart(selected).mark_circle(
 ).interactive(
 	bind_y = False
 ).properties(
-	width=450,
+	width=650,
     height=320)
 
 st.write(chart)
